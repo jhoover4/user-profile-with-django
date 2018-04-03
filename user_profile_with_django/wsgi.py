@@ -1,5 +1,5 @@
 """
-WSGI config for aaa project.
+WSGI config for user_profile_with_django project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "aaa.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "user_profile_with_django.settings")
 
 application = get_wsgi_application()
