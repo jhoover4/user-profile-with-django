@@ -51,6 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'user_profile_with_django.urls'
+handler404 = 'user_profile_with_django.views.custom_page_not_found_view'
 
 TEMPLATES = [
     {
