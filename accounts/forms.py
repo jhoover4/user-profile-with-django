@@ -14,3 +14,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('birth_date', 'bio', 'avatar')
+
+
+class ChangePasswordForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'password')

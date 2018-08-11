@@ -91,4 +91,11 @@ def view_profile(request, username):
         'user': user,
     })
 
+@login_required
+def change_password(request, username):
+    user = User.objects.get(username=username)
+
+    return render(request, 'accounts/change_password.html', {
+        'user': user,
+    })
 
