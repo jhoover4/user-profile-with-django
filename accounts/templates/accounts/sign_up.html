@@ -2,10 +2,14 @@
 
 {% block title %}Sign Up | {{ super }}{% endblock %}
 
+{% load static from staticfiles %}
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'js/password.min.js' %}"></script>
+{% endblock %}
+
 {% block body %}
     <form method="POST" action="{% url 'accounts:sign_up' %}">
         {% csrf_token %}
-        {# Include the hidden fields #}
         {% for hidden in form.hidden_fields %}
             {{ hidden }}
         {% endfor %}
