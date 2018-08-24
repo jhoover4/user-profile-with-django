@@ -27,3 +27,5 @@ urlpatterns = [
 ]
 
 urlpatterns += staticfiles_urlpatterns()
+
+handler404 = 'user_profile_with_django.views.custom_page_not_found_view'

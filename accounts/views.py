@@ -1,14 +1,14 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.urls import reverse
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render
+from django.urls import reverse
 
 from .forms import UserForm, ProfileForm
 from .models import User
+
 
 def sign_in(request):
     form = AuthenticationForm()
@@ -55,11 +55,13 @@ def sign_up(request):
             return HttpResponseRedirect(reverse('accounts:profile', kwargs={'username': username}))
     return render(request, 'accounts/sign_up.html', {'form': form})
 
+
 @login_required
 def sign_out(request):
     logout(request)
     messages.success(request, "You've been signed out. Come back soon!")
     return HttpResponseRedirect(reverse('home'))
+
 
 @login_required
 def edit_profile(request, username):
@@ -83,6 +85,7 @@ def edit_profile(request, username):
         'profile_form': profile_form
     })
 
+
 @login_required
 def view_profile(request, username):
     user = User.objects.get(username=username)
@@ -91,11 +94,21 @@ def view_profile(request, username):
         'user': user,
     })
 
+
 @login_required
 def change_password(request, username):
-    user = User.objects.get(username=username)
+    if request.method == 'POST':
+        change_password_form = PasswordChangeForm(request.user, request.POST)
 
+        if change_password_form.is_valid():
+            user = change_password_form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated.')
+            return HttpResponseRedirect(reverse('accounts:profile', kwargs={'username': request.user.username}))
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        change_password_form = PasswordChangeForm(request.user)
     return render(request, 'accounts/change_password.html', {
-        'user': user,
+        'form': change_password_form
     })
-

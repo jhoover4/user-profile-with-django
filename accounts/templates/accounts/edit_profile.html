@@ -3,10 +3,12 @@
 {% block title %}Edit Profile | {{ super }}{% endblock %}
 
 {% block body %}
+<h1>Edit {{ user.username.title }}'s Profile</h1>
 <form method="post">
-  {% csrf_token %}
-  {{ user_form.as_p }}
-  {{ profile_form.as_p }}
-  <button type="submit">Save changes</button>
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <button type="submit">Save changes</button>
 </form>
+<p><a href="{% url 'accounts:change_password' username=request.user.username %}">Change password</a></p>
 {% endblock %}
