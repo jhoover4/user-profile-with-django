@@ -3,9 +3,26 @@
 {% block title %}Sign Up | {{ super }}{% endblock %}
 
 {% block body %}
-<form method="POST" action="{% url 'accounts:sign_up' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" class="button-primary" value="Sign Up">
-</form>
+    <form method="POST" action="{% url 'accounts:sign_up' %}">
+        {% csrf_token %}
+        {# Include the hidden fields #}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        <div class="fieldWrapper">
+            {{ form.username.errors }}
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            {{ form.username }}
+        </div>
+        <div class="fieldWrapper form-group">
+            {{ form.password1.errors }}
+            <label for="{{ form.password1.id_for_label }}">Password:</label>
+            {{ form.password1 }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.password2.errors }}
+            <label for="{{ form.password2.id_for_label }}">Password confirmation:</label>
+            {{ form.password2 }}
+        </div>
+        <input type="submit" class="button-primary" value="Sign Up"></form>
 {% endblock %}

@@ -52,5 +52,6 @@ $(document).ready(function () {
 
     // Password strength meter
     $('.form-group #id_new_password1').password();
+    $('.form-group #id_password1').password();
 
 });
