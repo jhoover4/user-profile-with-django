@@ -50,8 +50,30 @@ $(document).ready(function () {
         return "<a class='button " + state + "'>" + text + "</div>";
     });
 
+    // Check for loaded scripts
+    function findScript(scriptName) {
+        var scripts = $("script").map(function () {
+            return this.src;
+        }).get();
+
+        for (i = 0; i < scripts.length; i++) {
+            if (scripts[i].indexOf(scriptName) !== -1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // Password strength meter
-    $('.form-group #id_new_password1').password();
-    $('.form-group #id_password1').password();
+    if (findScript("password")) {
+        $('.form-group #id_new_password1').password();
+        $('.form-group #id_password1').password();
+    }
+
+    // Combodate picker
+    if (findScript("combodate")) {
+        $('#id_birth_date').combodate();
+    }
 
 });

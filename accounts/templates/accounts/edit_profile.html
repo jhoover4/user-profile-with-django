@@ -2,6 +2,12 @@
 
 {% block title %}Edit Profile | {{ super }}{% endblock %}
 
+{% load static from staticfiles %}
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/combodate.min.js' %}"></script>
+{% endblock %}
+
 {% block body %}
 <h1>Edit {{ user.username.title }}'s Profile</h1>
 <form method="post">
