@@ -1,9 +1,13 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.files.storage import FileSystemStorage
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
+avatar_storage = FileSystemStorage(location='/media/avatars')
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -13,9 +17,11 @@ class Profile(models.Model):
     state = models.CharField(max_length=100, blank=True)
     fav_animal = models.CharField(max_length=100, blank=True)
     hobby = models.CharField(max_length=100, blank=True)
-    avatar = models.URLField()
-
-    # TODO: Clean Avatar
+    avatar = models.ImageField(upload_to='avatars', default='blank-avatar.png')
+    avatar_thumbnail = ImageSpecField(source='avatar',
+                                      processors=[ResizeToFill(100, 50)],
+                                      format='JPEG',
+                                      options={'quality': 60})
 
     def clean(self):
         bio_length = 10

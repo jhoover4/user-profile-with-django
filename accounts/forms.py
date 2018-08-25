@@ -12,13 +12,11 @@ class UserForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
-    today = datetime.now().strftime("%m-%d-%Y")
-
     birth_date = forms.CharField(
         widget=forms.TextInput(
             attrs={'data-format': 'YYYY-MM-DD',
                    'data-template': 'D MMM YYYY',
-                   'value': today,
+                   'value': '1990-01-01',
                    }))
 
     class Meta:

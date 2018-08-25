@@ -10,7 +10,7 @@
 
 {% block body %}
 <h1>Edit {{ user.username.title }}'s Profile</h1>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}

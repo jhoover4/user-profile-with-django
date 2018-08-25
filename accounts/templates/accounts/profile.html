@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-    <div class="grid-75">
+    <div class="grid-50">
         <h1>{{ user.username.title }}'s Profile</h1>
         <p>First Name: {{ user.first_name }}</p>
         <p>Last Name: {{ user.last_name }}</p>
@@ -12,6 +12,8 @@
         <p>Hobby: {{ user.profile.hobby }}</p>
         <p>City: {{ user.profile.city }}</p>
         <p>State: {{ user.profile.state }}</p>
-        <p>{{ user.profile.avatar }}</p>
+    </div>
+    <div class="grid-50">
+        <img src="{{ user.profile.avatar.url }}"/>
     </div>
 {% endblock %}
