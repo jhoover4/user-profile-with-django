@@ -76,4 +76,12 @@ $(document).ready(function () {
         $('#id_birth_date').combodate();
     }
 
+    // Remove html from bio updates.
+    var $bioEntry = $("textarea#id_bio");
+    var cleanBioRegex = /(<([^>]+)>)/ig
+
+    $bioEntry.focusout(function () {
+        var cleanedBioText = $bioEntry.val().replace(cleanBioRegex, "");
+        $bioEntry.val(cleanedBioText);
+    })
 });
