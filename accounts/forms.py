@@ -1,6 +1,5 @@
-from datetime import datetime
-
 from django import forms
+from django.contrib.auth.forms import PasswordChangeForm
 
 from .models import User, Profile
 
@@ -22,3 +21,16 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('birth_date', 'bio', 'avatar')
+
+
+class PasswordChangeCustomForm(PasswordChangeForm):
+    def clean_new_password1(self):
+        """
+        Validate that the new_password field is not the same as the old_password field.
+        """
+        old_password = self.cleaned_data["old_password"]
+        new_password = self.cleaned_data["new_password1"]
+
+        if new_password == old_password:
+            raise forms.ValidationError('Password cannot be the same as the previous password.', code='invalid')
+        return new_password

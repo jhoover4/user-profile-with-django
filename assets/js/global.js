@@ -67,8 +67,13 @@ $(document).ready(function () {
 
     // Password strength meter
     if (findScript("password")) {
-        $('.form-group #id_new_password1').password();
-        $('.form-group #id_password1').password();
+        $('.form-group #id_password1').password({
+            minimumLength: 14,
+            username: $("input#id_username")
+        });
+        $('.form-group #id_new_password1').password({
+            minimumLength: 14
+        });
     }
 
     // Combodate picker

@@ -1,12 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .forms import UserForm, ProfileForm
+from .forms import UserForm, ProfileForm, PasswordChangeCustomForm
 from .models import User
 
 
@@ -98,7 +98,7 @@ def view_profile(request, username):
 @login_required
 def change_password(request, username):
     if request.method == 'POST':
-        change_password_form = PasswordChangeForm(request.user, request.POST)
+        change_password_form = PasswordChangeCustomForm(request.user, request.POST)
 
         if change_password_form.is_valid():
             user = change_password_form.save()
@@ -108,7 +108,7 @@ def change_password(request, username):
         else:
             messages.error(request, 'Please correct the error below.')
     else:
-        change_password_form = PasswordChangeForm(request.user)
+        change_password_form = PasswordChangeCustomForm(request.user)
     return render(request, 'accounts/change_password.html', {
         'form': change_password_form
     })
