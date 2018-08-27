@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load imagekit %}
 
 {% block body %}
     <div class="grid-50">
@@ -13,7 +14,7 @@
         <p>City: {{ user.profile.city }}</p>
         <p>State: {{ user.profile.state }}</p>
     </div>
-    <div class="grid-50">
-        <img src="{{ user.profile.avatar.url }}"/>
+    <div class="grid-50 profile-img">
+    {% generateimage 'accounts:profile_pic' source=user.profile.avatar %}
     </div>
 {% endblock %}
