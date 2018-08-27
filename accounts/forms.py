@@ -20,7 +20,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('birth_date', 'bio', 'avatar')
+        fields = ('birth_date', 'bio', 'city', 'state', 'hobby', 'fav_animal', 'avatar')
 
 
 class PasswordChangeCustomForm(PasswordChangeForm):
