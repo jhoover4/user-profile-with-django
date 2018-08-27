@@ -1,3 +1,8 @@
+/* Homepage */
+.github-logo {
+    width: 75%;
+}
+
 /* Password strength meter */
 .pass-graybar {
     height: 5px;
@@ -26,7 +31,8 @@
 .profile-img img {
     border-radius: 50%;
 }
+
 @media screen and (max-width: 640px) {
-  .profile-img img {
-  }
+    .profile-img img {
+    }
 }
