@@ -1,12 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .forms import UserForm, ProfileForm, PasswordChangeCustomForm
+from .forms import UserForm, ProfileForm, PasswordChangeCustomForm, SignUpForm
 from .models import User
 
 
@@ -37,9 +37,9 @@ def sign_in(request):
 
 
 def sign_up(request):
-    form = UserCreationForm()
+    form = SignUpForm()
     if request.method == 'POST':
-        form = UserCreationForm(data=request.POST)
+        form = SignUpForm(data=request.POST)
         if form.is_valid():
             form.save()
             user = authenticate(

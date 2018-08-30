@@ -69,7 +69,9 @@ $(document).ready(function () {
     if (findScript("password")) {
         $('.form-group #id_password1').password({
             minimumLength: 14,
-            username: $("input#id_username")
+            username: $("input#id_username"),
+            firstName: $("input#id_first_name"),
+            lastName: $("input#id_last_name")
         });
         $('.form-group #id_new_password1').password({
             minimumLength: 14
