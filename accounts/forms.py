@@ -15,9 +15,22 @@ class SignUpForm(UserCreationForm):
 
 
 class UserForm(forms.ModelForm):
+    confirm_email = forms.EmailField(max_length=254)
+
+    def clean_confirm_email(self):
+        """
+        Validate that the validate_email field is the same as the email field.
+        """
+        first_email_field = self.cleaned_data["email"]
+        second_email_field = self.cleaned_data["confirm_email"]
+
+        if first_email_field != second_email_field:
+            raise forms.ValidationError("Email fields don't match", code='invalid')
+        return second_email_field
+
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name')
+        fields = ('username', 'email', 'confirm_email', 'first_name', 'last_name')
 
 
 class ProfileForm(forms.ModelForm):
