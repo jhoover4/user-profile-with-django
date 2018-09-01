@@ -17,6 +17,10 @@ class SignUpForm(UserCreationForm):
 class UserForm(forms.ModelForm):
     confirm_email = forms.EmailField(max_length=254)
 
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.initial['confirm_email'] = self.initial['email']
+
     def clean_confirm_email(self):
         """
         Validate that the validate_email field is the same as the email field.

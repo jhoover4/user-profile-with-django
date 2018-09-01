@@ -19,6 +19,9 @@ class CustomPasswordValidator(object):
             raise ValidationError(
                 _('Password must contain at least %(min_chars)d special character.') % {
                     'min_chars': self.min_special_chars})
+        if user.first_name in password or user.last_name in password:
+            raise ValidationError(
+                _('Password cannot contain first name or last name.'))
 
     def get_help_text(self):
         return ""
