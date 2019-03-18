@@ -19,13 +19,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
-
-from . import views
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
-    path('', views.home, name='home'),
+    path('', TemplateView.as_view(template_name='home.html'), name='home')
 ]
 
 urlpatterns += staticfiles_urlpatterns()
